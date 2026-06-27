@@ -94,38 +94,41 @@ body {
     top: 0;
     width: 100%;
     padding: 18px 6%;
-
     display: flex;
     justify-content: space-between;
     align-items: center;
-
     background: var(--surface);
-    backdrop-filter: blur(22px);
-
-    border-bottom: 1px solid rgba(255,255,255,0.06);
+    backdrop-filter: blur(20px);
     z-index: 1000;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
 }
 
 .navbar__logo {
-    font-weight: 600;
-    letter-spacing: 2px;
-    text-decoration: none;
     color: var(--text);
+    text-decoration: none;
+    letter-spacing: 2px;
+    font-weight: 600;
 }
 
 .navbar__menu {
     display: flex;
-    gap: 26px;
+    gap: 28px;
 }
 
 .navbar__link {
     color: var(--muted);
     text-decoration: none;
-    transition: 0.25s ease;
+    transition: 0.3s ease;
 }
 
 .navbar__link:hover {
     color: var(--accent);
+}
+
+.navbar__toggle {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
 }
 
 /* =========================
