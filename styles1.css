@@ -1,0 +1,490 @@
+/* =========================
+   DESIGN SYSTEM (CLEANED)
+========================= */
+
+:root {
+    --bg: #050505;
+    --surface: rgba(17, 17, 17, 0.75);
+    --text: #ffffff;
+    --muted: rgba(255,255,255,0.65);
+    --accent: #00b7ff;
+    --radius: 16px;
+    --shadow: 0 20px 60px rgba(0,0,0,0.6);
+}
+
+/* =========================
+   BASE
+========================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Inter", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    overflow-x: hidden;
+}
+
+/* =========================
+   BACKGROUND LAYERS
+========================= */
+
+.space {
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(circle at center, #0a0a0a, #000);
+    z-index: -3;
+}
+
+.space::before {
+    content: "";
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    background-image: radial-gradient(white 1px, transparent 1px);
+    background-size: 3px 3px;
+    opacity: 0.06;
+    animation: drift 60s linear infinite;
+}
+
+@keyframes drift {
+    from { transform: translate(0,0); }
+    to { transform: translate(-200px, -200px); }
+}
+
+.noise {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background-image: url("https://www.transparenttextures.com/patterns/noise.png");
+    opacity: 0.04;
+    z-index: 999;
+}
+
+.cursor-glow {
+    position: fixed;
+    width: 400px;
+    height: 400px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(0,183,255,0.15), transparent 60%);
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    z-index: 1;
+    mix-blend-mode: screen;
+}
+
+/* =========================
+   NAVBAR
+========================= */
+
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    padding: 18px 6%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(17,17,17,0.6);
+    backdrop-filter: blur(18px);
+    z-index: 1000;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.navbar__logo {
+    color: var(--text);
+    text-decoration: none;
+    letter-spacing: 2px;
+    font-weight: 600;
+}
+
+.navbar__menu {
+    display: flex;
+    gap: 28px;
+}
+
+.navbar__link {
+    color: var(--muted);
+    text-decoration: none;
+    transition: 0.3s ease;
+}
+
+.navbar__link:hover {
+    color: var(--accent);
+}
+
+.navbar__toggle {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.bar {
+    width: 25px;
+    height: 2px;
+    margin: 4px 0;
+    background: white;
+}
+
+/* =========================
+   SECTIONS
+========================= */
+
+.section {
+    padding: 90px 6%;
+    position: relative;
+}
+
+.section.dark {
+    background: linear-gradient(180deg, #0a0a0a, #050505);
+}
+
+.section-label {
+    color: var(--accent);
+    letter-spacing: 0.35rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+/* =========================
+   TYPOGRAPHY
+========================= */
+
+h1 {
+    font-size: clamp(3rem, 6vw, 5rem);
+    letter-spacing: -2px;
+    margin: 12px 0 18px;
+}
+
+h2 {
+    font-size: 2.2rem;
+    margin-bottom: 16px;
+}
+
+h3 {
+    margin-bottom: 10px;
+}
+
+.page-description {
+    max-width: 620px;
+    color: var(--muted);
+    line-height: 1.8;
+}
+
+/* =========================
+   GRID + CARDS
+========================= */
+
+.grid.two {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+}
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+}
+
+.card {
+    padding: 32px;
+    border-radius: var(--radius);
+    background: var(--surface);
+    border: 1px solid rgba(255,255,255,0.06);
+    backdrop-filter: blur(20px);
+    transition: 0.25s ease;
+}
+
+.card:hover {
+    transform: translateY(-6px);
+    border-color: rgba(0,183,255,0.25);
+}
+
+.card p {
+    margin: 0;
+    color: var(--muted);
+}
+
+/* =========================
+   IMAGE
+========================= */
+
+.image {
+    width: 100%;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+}
+
+/* =========================
+   LIST
+========================= */
+
+.feature-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-top: 20px;
+}
+
+.feature-list li {
+    color: var(--muted);
+    position: relative;
+    padding-left: 16px;
+}
+
+.feature-list li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 10px;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+}
+
+/* =========================
+   DASHBOARD PREVIEW
+========================= */
+
+.dashboard-preview {
+    border-radius: 24px;
+    overflow: hidden;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.08);
+    padding: 16px;
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+.footer {
+    padding: 60px 6%;
+    text-align: center;
+    color: var(--muted);
+}
+
+/* =========================
+   REVEAL
+========================= */
+
+.reveal {
+    opacity: 0;
+    transform: translateY(35px);
+    transition: 0.9s ease;
+}
+
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 1024px) {
+    .cards {
+        grid-template-columns: 1fr;
+    }
+
+    .grid.two {
+        grid-template-columns: 1fr;
+    }
+
+    .navbar__menu {
+        display: none;
+    }
+
+    .navbar__toggle {
+        display: flex;
+    }
+}
+/* =========================
+   HERO (SIMPLIFIED)
+========================= */
+
+.hero {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 0 6%;
+    position: relative;
+    background: url("./images/wave.jpeg") center/cover no-repeat;
+}
+
+.hero__overlay {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 50% 30%, rgba(0,0,0,0.2), rgba(0,0,0,0.9));
+}
+
+.hero__content {
+    position: relative;
+    max-width: 750px;
+    z-index: 2;
+}
+
+.hero p {
+    margin-top: 10px;
+    color: var(--muted);
+    letter-spacing: 0.3rem;
+}
+
+/* =========================
+   BUTTONS
+========================= */
+
+.btn {
+    display: inline-block;
+    margin-top: 24px;
+    padding: 14px 28px;
+    border-radius: 999px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: 0.3s ease;
+}
+
+.primary {
+    background: var(--accent);
+    color: #000;
+}
+
+.primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 25px rgba(0,183,255,0.25);
+}
+
+/* =========================
+   UTILITY
+========================= */
+
+.muted {
+    color: var(--muted);
+}
+
+/* =========================
+   GM STRIPE SECTION (SIMPLIFIED)
+========================= */
+
+.gm-stripe-wrap {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 80px 0;
+    overflow: hidden;
+}
+
+.gm-content {
+    position: relative;
+    z-index: 5;
+    text-align: center;
+}
+
+/* STRIPES */
+.gm-stripes {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 120px;
+    opacity: 0;
+    transform: translateY(30px);
+}
+
+.gm-stripes.left { left: 6%; }
+.gm-stripes.right { right: 6%; }
+
+.gm-stripes::before,
+.gm-stripes::after {
+    content: "";
+    position: absolute;
+    width: 14px;
+    height: 140%;
+    background: rgba(255,255,255,0.10);
+    transform: rotate(25deg);
+    top: -20%;
+}
+
+.gm-stripes::before { left: 20%; }
+.gm-stripes::after {
+    left: 55%;
+    width: 3px;
+    background: var(--accent);
+    box-shadow: 0 0 20px rgba(0,183,255,0.4);
+}
+
+.gm-stripe-wrap.reveal.active .gm-stripes {
+    opacity: 1;
+    transform: translateY(0);
+    transition: 0.9s ease;
+}
+
+.gm-stripe-wrap.reveal.active .gm-stripes.right {
+    transition-delay: 0.12s;
+}
+
+/* =========================
+   REMOVED / UNUSED CLEANUP NOTE
+========================= */
+/*
+Removed:
+- system-showcase
+- about-showcase
+- system-dashboard extras
+- dashboard shadow/badge layers
+- gm-form input styles (unused in current HTML)
+- all duplicate section spacing overrides
+*/
+
+/* Operational Shift glow animation */
+.card.operational-shift {
+    position: relative;
+    overflow: hidden;
+}
+
+/* soft animated glow layer */
+.card.operational-shift::before {
+    content: "";
+    position: absolute;
+    inset: -2px;
+    background: radial-gradient(
+        circle at 30% 30%,
+        rgba(0, 183, 255, 0.25),
+        transparent 60%
+    );
+    opacity: 0.6;
+    filter: blur(20px);
+    animation: shiftGlow 4s ease-in-out infinite;
+    z-index: 0;
+}
+
+/* keep text above glow */
+.card.operational-shift > * {
+    position: relative;
+    z-index: 1;
+}
+
+/* animated intensity shift */
+@keyframes shiftGlow {
+    0% {
+        opacity: 0.35;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.75;
+        transform: scale(1.08);
+    }
+    100% {
+        opacity: 0.35;
+        transform: scale(1);
+    }
+}

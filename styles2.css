@@ -1,0 +1,305 @@
+
+/* =========================
+   DESIGN SYSTEM
+========================= */
+
+:root {
+    --bg: #050505;
+    --surface: rgba(17, 17, 17, 0.75);
+    --text: #ffffff;
+    --muted: rgba(255,255,255,0.65);
+    --accent: #00b7ff;
+    --radius: 16px;
+    --shadow: 0 20px 60px rgba(0,0,0,0.6);
+}
+
+/* =========================
+   BASE
+========================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Inter", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    overflow-x: hidden;
+}
+
+/* =========================
+   BACKGROUND LAYERS
+========================= */
+
+.space {
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(circle at center, #0a0a0a, #000);
+    z-index: -3;
+}
+
+.space::before {
+    content: "";
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    background-image: radial-gradient(white 1px, transparent 1px);
+    background-size: 3px 3px;
+    opacity: 0.06;
+    animation: drift 60s linear infinite;
+}
+
+@keyframes drift {
+    to { transform: translate(-200px, -200px); }
+}
+
+.noise {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background-image: url("https://www.transparenttextures.com/patterns/noise.png");
+    opacity: 0.04;
+    z-index: 999;
+}
+
+.cursor-glow {
+    position: fixed;
+    width: 400px;
+    height: 400px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(0,183,255,0.18), transparent 60%);
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    z-index: 1;
+    mix-blend-mode: screen;
+}
+
+/* =========================
+   NAVBAR
+========================= */
+
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    padding: 18px 6%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--surface);
+    backdrop-filter: blur(20px);
+    z-index: 1000;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.navbar__logo {
+    color: var(--text);
+    text-decoration: none;
+    letter-spacing: 2px;
+    font-weight: 600;
+}
+
+.navbar__menu {
+    display: flex;
+    gap: 28px;
+}
+
+.navbar__link {
+    color: var(--muted);
+    text-decoration: none;
+    transition: 0.3s ease;
+}
+
+.navbar__link:hover {
+    color: var(--accent);
+}
+
+.navbar__toggle {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.bar {
+    width: 25px;
+    height: 2px;
+    margin: 4px 0;
+    background: white;
+}
+
+/* =========================
+   SECTIONS
+========================= */
+
+.section {
+    padding: 100px 6%;
+}
+
+.section.dark {
+    background: linear-gradient(180deg, #0a0a0a, #050505);
+}
+
+/* =========================
+   TYPOGRAPHY
+========================= */
+
+h1 {
+    font-size: clamp(3rem, 6vw, 5rem);
+    letter-spacing: -2px;
+    margin-bottom: 16px;
+}
+
+h2 {
+    font-size: 2.2rem;
+    margin-bottom: 14px;
+}
+
+p {
+    color: var(--muted);
+    line-height: 1.7;
+}
+
+/* =========================
+   CARDS
+========================= */
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+}
+
+.card {
+    padding: 32px;
+    border-radius: var(--radius);
+    background: var(--surface);
+    border: 1px solid rgba(255,255,255,0.06);
+    backdrop-filter: blur(20px);
+    transition: 0.25s ease;
+}
+
+.card:hover {
+    transform: translateY(-6px);
+    border-color: rgba(0,183,255,0.25);
+}
+
+.card h3 {
+    margin-bottom: 10px;
+}
+
+/* =========================
+   GRID
+========================= */
+
+.grid.two {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+}
+
+/* =========================
+   IMAGE
+========================= */
+
+.image {
+    width: 100%;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+.footer {
+    padding: 60px 6%;
+    text-align: center;
+}
+
+/* =========================
+   REVEAL
+========================= */
+
+.reveal {
+    opacity: 0;
+    transform: translateY(35px);
+    transition: 0.9s ease;
+}
+
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 1024px) {
+    .cards {
+        grid-template-columns: 1fr;
+    }
+
+    .grid.two {
+        grid-template-columns: 1fr;
+    }
+
+    .navbar__menu {
+        display: none;
+    }
+
+    .navbar__toggle {
+        display: flex;
+    }
+}
+
+/* Animated glow border for stats cards */
+.cards .card {
+    position: relative;
+    overflow: hidden;
+}
+
+/* glowing animated outline */
+.cards .card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    padding: 1px;
+    border-radius: inherit;
+
+    background: linear-gradient(
+        120deg,
+        transparent,
+        rgba(0, 183, 255, 0.8),
+        transparent
+    );
+
+    background-size: 200% 200%;
+    animation: glowBorder 3s linear infinite;
+
+    -webkit-mask:
+        linear-gradient(#000 0 0) content-box,
+        linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+
+    pointer-events: none;
+}
+
+/* subtle pulse for energy */
+@keyframes glowBorder {
+    0% {
+        background-position: 0% 50%;
+        opacity: 0.6;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        background-position: 200% 50%;
+        opacity: 0.6;
+    }
+}

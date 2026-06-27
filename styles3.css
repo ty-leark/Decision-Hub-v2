@@ -1,0 +1,415 @@
+/* =========================
+   DESIGN SYSTEM (REFINED)
+========================= */
+
+:root {
+    --bg: #050505;
+    --surface: rgba(18, 18, 18, 0.72);
+    --surface-2: rgba(28, 28, 28, 0.5);
+
+    --text: #ffffff;
+    --muted: rgba(255,255,255,0.62);
+
+    --accent: #00b7ff;
+    --accent-soft: rgba(0, 183, 255, 0.12);
+
+    --radius: 18px;
+    --shadow: 0 25px 70px rgba(0,0,0,0.65);
+}
+
+/* =========================
+   BASE
+========================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Inter", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* =========================
+   BACKGROUND LAYERS
+========================= */
+
+.space {
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(circle at center, #0a0a0a, #000);
+    z-index: -3;
+}
+
+.noise {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background: url("https://www.transparenttextures.com/patterns/noise.png");
+    opacity: 0.04;
+    z-index: 999;
+}
+
+/* =========================
+   CURSOR GLOW (FIXED + SMOOTH)
+========================= */
+
+.cursor-glow {
+    position: fixed;
+    left: 0;
+    top: 0;
+
+    width: 420px;
+    height: 420px;
+
+    margin-left: -210px;
+    margin-top: -210px;
+
+    border-radius: 50%;
+    pointer-events: none;
+
+    background: radial-gradient(
+        circle,
+        rgba(0,183,255,0.16),
+        transparent 65%
+    );
+
+    mix-blend-mode: screen;
+    z-index: 2;
+
+    will-change: transform;
+}
+
+/* =========================
+   NAVBAR
+========================= */
+
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    padding: 18px 6%;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    background: var(--surface);
+    backdrop-filter: blur(22px);
+
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    z-index: 1000;
+}
+
+.navbar__logo {
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-decoration: none;
+    color: var(--text);
+}
+
+.navbar__menu {
+    display: flex;
+    gap: 26px;
+}
+
+.navbar__link {
+    color: var(--muted);
+    text-decoration: none;
+    transition: 0.25s ease;
+}
+
+.navbar__link:hover {
+    color: var(--accent);
+}
+
+/* =========================
+   SECTION LAYOUT
+========================= */
+
+.section {
+    padding: 120px 6%;
+    position: relative;
+}
+
+.section.dark {
+    background: linear-gradient(180deg, #0a0a0a, #050505);
+    padding: 100px 6%;
+}
+
+/* =========================
+   GRID
+========================= */
+
+.grid.two {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 56px;
+    align-items: center;
+}
+
+/* =========================
+   CARDS (PREMIUM GLOW SYSTEM)
+========================= */
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 26px;
+}
+
+.card {
+    position: relative;
+    padding: 42px;
+
+    border-radius: var(--radius);
+    background: var(--surface);
+
+    border: 1px solid rgba(255,255,255,0.06);
+    backdrop-filter: blur(22px);
+
+    overflow: hidden;
+    transition: 0.35s ease;
+
+    will-change: transform;
+}
+
+/* hover lift */
+.card:hover {
+    transform: translateY(-10px) scale(1.02);
+    border-color: rgba(0,183,255,0.35);
+}
+
+/* soft animated glow */
+@keyframes glowPulse {
+    0%, 100% {
+        box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+    }
+    50% {
+        box-shadow:
+            0 18px 60px rgba(0,0,0,0.55),
+            0 0 28px rgba(0,183,255,0.18);
+    }
+}
+
+.cards .card {
+    animation: glowPulse 5s ease-in-out infinite;
+}
+
+/* =========================
+   IMAGE STACK (MORE REFINED)
+========================= */
+
+.image-stack {
+    display: grid;
+    justify-items: center;
+}
+
+.image-stack img {
+    width: 75%;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    transition: 0.35s ease;
+}
+
+/* layered depth */
+.image-stack img:nth-child(1) {
+    transform: translateY(24px) scale(0.93);
+    opacity: 0.85;
+}
+
+.image-stack img:nth-child(2) {
+    transform: translateY(0px) scale(1);
+    z-index: 3;
+}
+
+.image-stack img:nth-child(3) {
+    transform: translateY(-24px) scale(0.93);
+    opacity: 0.85;
+}
+
+/* hover lift */
+.image-stack img:hover {
+    transform: translateY(-10px) scale(1.02);
+    z-index: 5;
+    opacity: 1;
+}
+
+/* =========================
+   REVEAL
+========================= */
+
+.reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: 1s ease;
+}
+
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+.footer {
+    padding: 60px 6%;
+    text-align: center;
+    color: var(--muted);
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 1024px) {
+    .cards {
+        grid-template-columns: 1fr;
+    }
+
+    .grid.two {
+        grid-template-columns: 1fr;
+    }
+
+    .navbar__menu {
+        display: none;
+    }
+
+    .navbar__toggle {
+        display: block;
+    }
+}
+
+/* =========================
+   UTILITIES
+========================= */
+
+.muted {
+    color: var(--muted);
+}
+
+.hud-reveal {
+    position: relative;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: hudFadeIn 1.2s ease forwards;
+}
+
+/* scanning light pass */
+.hud-reveal::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        120deg,
+        transparent 0%,
+        rgba(0,183,255,0.15) 45%,
+        rgba(0,183,255,0.35) 50%,
+        rgba(0,183,255,0.15) 55%,
+        transparent 100%
+    );
+    transform: translateX(-120%);
+    animation: hudScan 1.4s ease forwards;
+    pointer-events: none;
+}
+
+/* subtle glow pulse */
+.hud-reveal h1 {
+    text-shadow: 0 0 20px rgba(0,183,255,0.25);
+    animation: hudGlow 2.5s ease-in-out infinite;
+}
+
+@keyframes hudScan {
+    0% { transform: translateX(-120%); }
+    100% { transform: translateX(120%); }
+}
+
+@keyframes hudFadeIn {
+    0% { opacity: 0; transform: translateY(25px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes hudGlow {
+    0%, 100% { text-shadow: 0 0 10px rgba(0,183,255,0.15); }
+    50% { text-shadow: 0 0 25px rgba(0,183,255,0.4); }
+}
+
+/* =========================
+   SYSTEM-GRID BACKGROUND MATCH
+========================= */
+
+.system-grid-bg {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+}
+
+/* main orbital glow (matches index system-grid) */
+.system-grid-bg::before {
+    content: "";
+    position: absolute;
+    width: 900px;
+    height: 900px;
+    border-radius: 50%;
+    left: -250px;
+    top: -200px;
+
+    background: radial-gradient(
+        circle,
+        rgba(0, 183, 255, 0.10),
+        transparent 70%
+    );
+
+    filter: blur(90px);
+    opacity: 0.9;
+}
+
+/* secondary depth glow */
+.system-grid-bg::after {
+    content: "";
+    position: absolute;
+    width: 700px;
+    height: 700px;
+    border-radius: 50%;
+    right: -200px;
+    bottom: -250px;
+
+    background: radial-gradient(
+        circle,
+        rgba(0, 183, 255, 0.06),
+        transparent 70%
+    );
+
+    filter: blur(100px);
+}
+
+/* =========================
+   APPLY SYSTEM GRID FEEL TO SECTION
+========================= */
+
+.section.dark {
+    position: relative;
+    overflow: hidden;
+}
+
+/* optional: subtle grid overlay feel */
+.section.dark::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(to right, rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255,255,255,0.02) 1px, transparent 1px);
+    background-size: 60px 60px;
+    opacity: 0.04;
+    pointer-events: none;
+}
